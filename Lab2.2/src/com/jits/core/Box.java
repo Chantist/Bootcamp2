@@ -1,40 +1,35 @@
 package com.jits.core;
 
-class Box extends Parcel {
-	
-	private int width;
-	private int height;
-	private int depth;
+class Box extends Parcel implements Dimensionable {
 
-	Box(Address from, Address to, int w, int h, int d, long id) {
+	private Dimension dimension;
+
+	Box(Address from, Address to, int h, int w, int d, long id) {
 		super(from, to, id);
-		this.setWidth(w);
-		this.setHeight(h);
-		this.setDepth(d);
+		this.setDimension(new Dimension(h, w, d));
 
 	}
 
-	int getWidth() {
-		return width;
+	private Dimension getDimension() {
+		return dimension;
 	}
 
-	private void setWidth(int width) {
-		this.width = width;
+	private void setDimension(Dimension dimension) {
+		this.dimension = dimension;
 	}
 
-	int getHeight() {
-		return height;
+	@Override
+	public int height() {
+		return this.getDimension().getHeight();
 	}
 
-	private void setHeight(int height) {
-		this.height = height;
+	@Override
+	public int width() {
+		return this.getDimension().getWidth();
 	}
 
-	int getDepth() {
-		return depth;
-	}
-
-	private void setDepth(int depth) {
-		this.depth = depth;
+	@Override
+	public int depth() {
+		return this.getDimension().getDepth();
 	}
 }

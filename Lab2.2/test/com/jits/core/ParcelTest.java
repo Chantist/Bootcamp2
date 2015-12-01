@@ -25,9 +25,9 @@ public class ParcelTest {
 
 	@Test
 	public void testNewBox() {
-		int expected = 8;
-		int actual = ((Box) box).getHeight();
-		assertEquals(expected, actual);
+		assertEquals(5, ((Dimensionable) box).height());
+		assertEquals(8, ((Dimensionable) box).width());
+		assertEquals(10, ((Dimensionable) box).depth());
 	}
 
 	@Test
@@ -40,7 +40,7 @@ public class ParcelTest {
 	@Test
 	public void testLetterProtection() {
 		Protection expected = Protection.FIRE_PROOF;
-		Protection actual = ((Letter) letter).getProtection();
+		Protection actual = ((Protectable) letter).protection();
 
 		assertEquals(expected, actual);
 	}
