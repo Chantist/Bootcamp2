@@ -6,8 +6,6 @@ abstract class Parcel {
 	private int height;
 	private int depth;
 	private long id;
-	Address fromAddress;
-	Address toAddress;
 
 	Parcel(int w, int h, int d, long id) {
 		this.setId(id);
@@ -50,22 +48,6 @@ abstract class Parcel {
 
 	private void setDepth(int depth) {
 		this.depth = depth;
-	}
-
-	Address getFromAddress() {
-		return fromAddress;
-	}
-
-	private void setFromAddress(Address fromAddress) {
-		this.fromAddress = fromAddress;
-	}
-
-	Address getToAddress() {
-		return toAddress;
-	}
-
-	private void setToAddress(Address toAddress) {
-		this.toAddress = toAddress;
 	}
 
 }

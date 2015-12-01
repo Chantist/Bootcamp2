@@ -17,7 +17,7 @@ public class ParcelTest {
 	@Before
 	public void setUp() {
 		box = new Box(5, 8, 10, 12345);
-		letter = new Letter(12345);
+		letter = new Letter(Protection.FIRE_PROOF, 12345);
 	}
 	
 	@Test
@@ -34,25 +34,12 @@ public class ParcelTest {
 		assertEquals(expected, actual);
 	}
 	
-
 	@Test
-	public void testAddressesAreOnParcel() {
-		assertFalse(letter.getFromAddress() == null);
-		assertFalse(letter.getToAddress() == null);
-
-		assertFalse(box.getFromAddress() == null);
-		assertFalse(box.getToAddress() == null);
-
-	}
-
-	@Test
-	public void testAddress() {
-		assertEquals("Bucky Barnes | 123 Main St | Atlanta, GA 30326", letter.getFromAddress().toString());
-		assertEquals("Luke Skywalker | 1111 Star Way | Dusty, CA 90008", letter.getToAddress().toString());
-
-		assertEquals("Number One | 789 Onetwothree St | Atlanta, GA 11111", box.getFromAddress().toString());
-		assertEquals("Dri Nowater | 89 Vacation Circle | Drought, ID 90008", box.getToAddress().toString());
-
+	public void testLetterProtection() {
+		Protection expected = Protection.FIRE_PROOF;
+		Protection actual = ((Letter) letter).getProtection();
+		
+		assertEquals(expected, actual);
 	}
 
 }
