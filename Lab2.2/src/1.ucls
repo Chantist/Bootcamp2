@@ -30,7 +30,7 @@
   </class>  
   <class id="4" language="java" name="com.jits.core.Ground" project="Lab2.1" 
     file="/Lab2.1/src/com/jits/core/Ground.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="522" y="451"/>    
+    <position height="-1" width="-1" x="500" y="399"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      

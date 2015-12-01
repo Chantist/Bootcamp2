@@ -1,4 +1,4 @@
-package jits.core.shipping;
+package com.jits.core;
 
 import java.util.ArrayList;
 import java.util.List;

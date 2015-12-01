@@ -1,4 +1,4 @@
-package jits.core.shipping;
+package com.jits.core;
 
 class Air extends Delivery {
 	

@@ -1,4 +1,4 @@
-package jits.core.shipping;
+package com.jits.core;
 
 abstract class Parcel {
 	
@@ -50,6 +50,22 @@ abstract class Parcel {
 
 	private void setDepth(int depth) {
 		this.depth = depth;
+	}
+
+	Address getFromAddress() {
+		return fromAddress;
+	}
+
+	private void setFromAddress(Address fromAddress) {
+		this.fromAddress = fromAddress;
+	}
+
+	Address getToAddress() {
+		return toAddress;
+	}
+
+	private void setToAddress(Address toAddress) {
+		this.toAddress = toAddress;
 	}
 
 }

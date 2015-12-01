@@ -1,13 +1,13 @@
-package jits.core.shipping;
+package com.jits.core;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import jits.core.shipping.Box;
-import jits.core.shipping.Letter;
-import jits.core.shipping.Parcel;
+import com.jits.core.Box;
+import com.jits.core.Letter;
+import com.jits.core.Parcel;
 
 public class ParcelTest {
 	

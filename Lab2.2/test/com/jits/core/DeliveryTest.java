@@ -1,4 +1,4 @@
-package jits.core.shipping;
+package com.jits.core;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -29,26 +29,6 @@ public class DeliveryTest {
 	public void testParcelIsOnDelivery() {
 		assertFalse(grd.getParcel() == null);
 		assertFalse(air.getParcel() == null);
-
-	}
-
-	@Test
-	public void testAddressesAreOnDelivery() {
-		assertFalse(grd.getFromAddress() == null);
-		assertFalse(grd.getToAddress() == null);
-
-		assertFalse(air.getFromAddress() == null);
-		assertFalse(air.getToAddress() == null);
-
-	}
-
-	@Test
-	public void testAddress() {
-		assertEquals("Bucky Barnes | 123 Main St | Atlanta, GA 30326", grd.getFromAddress().toString());
-		assertEquals("Luke Skywalker | 1111 Star Way | Dusty, CA 90008", grd.getToAddress().toString());
-
-		assertEquals("Number One | 789 Onetwothree St | Atlanta, GA 11111", air.getFromAddress().toString());
-		assertEquals("Dri Nowater | 89 Vacation Circle | Drought, ID 90008", air.getToAddress().toString());
 
 	}
 

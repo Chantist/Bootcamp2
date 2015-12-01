@@ -1,4 +1,4 @@
-package jits.core.shipping;
+package com.jits.core;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
