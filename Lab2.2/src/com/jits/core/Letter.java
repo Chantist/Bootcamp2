@@ -3,8 +3,8 @@ package com.jits.core;
 class Letter extends Parcel {
 	private Protection protection;
 
-	Letter(Protection protection, long id) {
-		super(0, 0, 0, id);
+	Letter(Address from, Address to, Protection protection, long id) {
+		super(from, to, 0, 0, 0, id);
 		this.setProtection(protection);
 		
 	}

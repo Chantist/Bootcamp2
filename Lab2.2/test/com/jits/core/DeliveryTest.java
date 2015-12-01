@@ -23,13 +23,13 @@ public class DeliveryTest {
 
 	@Before
 	public void setUp() {
-		box = new Box(7, 5, 6, 8934679867L);
-		letter = new Letter(Protection.PLAIN, 974434120L);
+		box = new Box(new Address("Bucky Barnes", "123 Main St", "GA", "Atlanta", "30326"),
+				new Address("Luke Skywalker", "1111 Star Way", "CA", "Dusty", "90008"), 7, 5, 6, 8934679867L);
+		letter = new Letter(new Address("Number One", "789 Onetwothree St", "GA", "Atlanta", "11111"),
+				new Address("Dri Nowater", "89 Vacation Circle", "ID", "Drought", "90008"), Protection.PLAIN, 974434120L);
 
-		grd = new Ground(box, new Address("Bucky Barnes", "123 Main St", "GA", "Atlanta", "30326"),
-				new Address("Luke Skywalker", "1111 Star Way", "CA", "Dusty", "90008"));
-		air = new Air(letter, new Address("Number One", "789 Onetwothree St", "GA", "Atlanta", "11111"),
-				new Address("Dri Nowater", "89 Vacation Circle", "ID", "Drought", "90008"));
+		grd = new Ground(box);
+		air = new Air(letter);
 
 	}
 
@@ -37,26 +37,6 @@ public class DeliveryTest {
 	public void testParcelIsOnDelivery() {
 		assertFalse(grd.getParcel() == null);
 		assertFalse(air.getParcel() == null);
-
-	}
-
-	@Test
-	public void testAddressesAreOnDelivery() {
-		assertFalse(grd.getFromAddress() == null);
-		assertFalse(grd.getToAddress() == null);
-
-		assertFalse(air.getFromAddress() == null);
-		assertFalse(air.getToAddress() == null);
-
-	}
-
-	@Test
-	public void testAddress() {
-		assertEquals("Bucky Barnes | 123 Main St | Atlanta, GA 30326", grd.getFromAddress().toString());
-		assertEquals("Luke Skywalker | 1111 Star Way | Dusty, CA 90008", grd.getToAddress().toString());
-
-		assertEquals("Number One | 789 Onetwothree St | Atlanta, GA 11111", air.getFromAddress().toString());
-		assertEquals("Dri Nowater | 89 Vacation Circle | Drought, ID 90008", air.getToAddress().toString());
 
 	}
 

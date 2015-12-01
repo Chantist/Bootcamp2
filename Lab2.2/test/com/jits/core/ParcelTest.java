@@ -10,16 +10,19 @@ import com.jits.core.Letter;
 import com.jits.core.Parcel;
 
 public class ParcelTest {
-	
+
 	private Parcel box;
 	private Parcel letter;
-	
+
 	@Before
 	public void setUp() {
-		box = new Box(5, 8, 10, 12345);
-		letter = new Letter(Protection.FIRE_PROOF, 12345);
+		box = new Box(new Address("Bucky Barnes", "123 Main St", "GA", "Atlanta", "30326"),
+				new Address("Luke Skywalker", "1111 Star Way", "CA", "Dusty", "90008"), 5, 8, 10, 12345);
+		letter = new Letter(new Address("Number One", "789 Onetwothree St", "GA", "Atlanta", "11111"),
+				new Address("Dri Nowater", "89 Vacation Circle", "ID", "Drought", "90008"), Protection.FIRE_PROOF,
+				12345);
 	}
-	
+
 	@Test
 	public void testNewBox() {
 		int expected = 8;
@@ -33,13 +36,33 @@ public class ParcelTest {
 		long actual = letter.getId();
 		assertEquals(expected, actual);
 	}
-	
+
 	@Test
 	public void testLetterProtection() {
 		Protection expected = Protection.FIRE_PROOF;
 		Protection actual = ((Letter) letter).getProtection();
-		
+
 		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testAddressesAreOnDelivery() {
+		assertFalse(box.getFrom() == null);
+		assertFalse(box.getTo() == null);
+
+		assertFalse(letter.getFrom() == null);
+		assertFalse(letter.getTo() == null);
+
+	}
+
+	@Test
+	public void testAddress() {
+		assertEquals("Bucky Barnes | 123 Main St | Atlanta, GA 30326", box.getFrom().toString());
+		assertEquals("Luke Skywalker | 1111 Star Way | Dusty, CA 90008", box.getTo().toString());
+
+		assertEquals("Number One | 789 Onetwothree St | Atlanta, GA 11111", letter.getFrom().toString());
+		assertEquals("Dri Nowater | 89 Vacation Circle | Drought, ID 90008", letter.getTo().toString());
+
 	}
 
 }

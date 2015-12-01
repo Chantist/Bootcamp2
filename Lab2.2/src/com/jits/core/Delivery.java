@@ -7,14 +7,10 @@ import javax.swing.JOptionPane;
 
 abstract class Delivery {
 
-	private Address fromAddress;
-	private Address toAddress;
 	private Parcel parcel;
 
-	Delivery(Parcel parcel, Address fromAddress, Address toAddress) {
+	Delivery(Parcel parcel, Parcel...parcels) {
 		this.setParcel(parcel);
-		this.setFromAddress(fromAddress);
-		this.setToAddress(toAddress);
 	}
 
 	int review() {
@@ -33,8 +29,8 @@ abstract class Delivery {
 
 		information.add(this.getClass().getSimpleName() + " " + this.getParcel().getClass().getSimpleName() + " ("
 				+ this.getParcel().getDimensions() + ")");
-		information.add("From: " + this.getFromAddress().toString());
-		information.add("To: " + this.getToAddress().toString());
+		information.add("From: " + this.getParcel().getFrom().toString());
+		information.add("To: " + this.getParcel().getTo().toString());
 
 		StringBuilder review = new StringBuilder();
 
@@ -52,22 +48,6 @@ abstract class Delivery {
 
 	private void setParcel(Parcel parcel) {
 		this.parcel = parcel;
-	}
-
-	Address getToAddress() {
-		return toAddress;
-	}
-
-	private void setToAddress(Address toAddress) {
-		this.toAddress = toAddress;
-	}
-
-	Address getFromAddress() {
-		return fromAddress;
-	}
-
-	private void setFromAddress(Address fromAddress) {
-		this.fromAddress = fromAddress;
 	}
 
 }
