@@ -42,11 +42,11 @@ public class DeliveryTest {
 
 	@Test
 	public void testGetData() {
-		String expected = "Ground Box (Dimensions: 7, 5, 6)" + "\n"
+		String expected = "Ground Box" + "\n"
 				+ "From: Bucky Barnes | 123 Main St | Atlanta, GA 30326" + "\n"
 				+ "To: Luke Skywalker | 1111 Star Way | Dusty, CA 90008" + "\n";
-		String actual = grd.getData();
-
+		String actual = grd.toString();
+		
 		assertEquals(expected, actual);
 
 	}

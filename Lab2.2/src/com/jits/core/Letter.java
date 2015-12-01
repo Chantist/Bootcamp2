@@ -4,7 +4,7 @@ class Letter extends Parcel {
 	private Protection protection;
 
 	Letter(Address from, Address to, Protection protection, long id) {
-		super(from, to, 0, 0, 0, id);
+		super(from, to, id);
 		this.setProtection(protection);
 		
 	}

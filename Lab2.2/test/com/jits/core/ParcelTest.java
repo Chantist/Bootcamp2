@@ -26,7 +26,7 @@ public class ParcelTest {
 	@Test
 	public void testNewBox() {
 		int expected = 8;
-		int actual = box.getHeight();
+		int actual = ((Box) box).getHeight();
 		assertEquals(expected, actual);
 	}
 

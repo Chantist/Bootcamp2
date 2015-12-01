@@ -9,30 +9,38 @@ abstract class Delivery {
 
 	private Parcel parcel;
 
-	Delivery(Parcel parcel, Parcel...parcels) {
+	Delivery(Parcel parcel, Parcel... parcels) {
 		this.setParcel(parcel);
 	}
 
 	int review() {
-		int response = JOptionPane.showConfirmDialog(null, this.getData(), "JITShipping", JOptionPane.YES_NO_OPTION);
+		int response = JOptionPane.showConfirmDialog(null, this.toString(), "JITShipping", JOptionPane.YES_NO_OPTION);
+
 		if (response == JOptionPane.YES_OPTION) {
-			JOptionPane.showMessageDialog(null, "Parcel has been shipped by " + this.getClass().getSimpleName() + ".");
+			JOptionPane.showMessageDialog(null, this.ship());
 		} else {
-			JOptionPane.showMessageDialog(null, "Delivery cancelled.");
+			JOptionPane.showMessageDialog(null, this.cancel());
 		}
 
 		return response;
 	}
 
-	String getData() {
-		List<String> information = new ArrayList<String>();
+	String ship() {
+		return "Parcel has been shipped by " + this.getClass().getSimpleName().toLowerCase() + ".";
+	}
 
-		information.add(this.getClass().getSimpleName() + " " + this.getParcel().getClass().getSimpleName() + " ("
-				+ this.getParcel().getDimensions() + ")");
+	String cancel() {
+		return "Delivery has been cancelled.";
+	}
+
+	@Override
+	public String toString() {
+		List<String> information = new ArrayList<String>();
+		StringBuilder review = new StringBuilder();
+
+		information.add(this.getClass().getSimpleName() + " " + this.getParcel().getClass().getSimpleName());
 		information.add("From: " + this.getParcel().getFrom().toString());
 		information.add("To: " + this.getParcel().getTo().toString());
-
-		StringBuilder review = new StringBuilder();
 
 		for (String info : information) {
 			review.append(info);
