@@ -1,10 +1,10 @@
 package com.jits.core;
 
-class Box extends Parcel implements Dimensionable {
+ public class Box extends Parcel implements Dimensionable {
 
 	private Dimension dimension;
 
-	Box(Address from, Address to, int h, int w, int d, long id) {
+	public Box(Address from, Address to, int h, int w, int d, long id) {
 		super(from, to, id);
 		this.setDimension(new Dimension(h, w, d));
 

@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import com.jits.core.Address;
 import com.jits.core.Air;
+import com.jits.core.Box;
 import com.jits.core.Delivery;
 import com.jits.core.Ground;
 import com.jits.core.Letter;
@@ -12,35 +13,56 @@ import com.jits.core.Protection;
 
 class DeliveryFactory {
 
+	private HashMap<String, String> map;
+
 	Delivery getDelivery(HashMap<String, String> map) {
+		this.map = map;
 
-		Parcel parcel = null;
-		Delivery delivery = null;
-		String firstLetterOfType = map.get("type").substring(0, 1);
-		String secondLetterOfType = map.get("type").substring(1, 2);
+		return this.determineDeliveryType();
 
-		switch (firstLetterOfType) {
-		case "L":
-			parcel = new Letter(
-					new Address(map.get("fromName"), map.get("fromStreet"), map.get("fromState"), map.get("fromCity"),
-							map.get("fromZip")),
-					new Address(map.get("toName"), map.get("toStreet"), map.get("toState"), map.get("toCity"),
-							map.get("toZip")),
-					Protection.valueOf(map.get("lType").toUpperCase()), Long.parseLong(map.get("id")));
-			break;
-		}
+	}
 
-		switch (secondLetterOfType) {
+	private Delivery determineDeliveryType() {
+
+		Delivery rtn = null;
+		String deliveryType = this.map.get("type").substring(1, 2);
+		switch (deliveryType) {
 		case "A":
-			delivery = new Air(parcel);
+			rtn = new Air(this.determineParcelType());
 			break;
 		case "G":
-			delivery = new Ground(parcel);
+			rtn = new Ground(this.determineParcelType());
 			break;
 		}
 
-		return delivery;
+		return rtn;
+	}
 
+	private Parcel determineParcelType() {
+
+		Parcel rtn = null;
+		String parcelType = this.map.get("type").substring(0, 1);
+
+		switch (parcelType) {
+		case "L":
+			rtn = new Letter(
+					new Address(this.map.get("fromName"), this.map.get("fromStreet"), this.map.get("fromState"),
+							this.map.get("fromCity"), this.map.get("fromZip")),
+					new Address(this.map.get("toName"), this.map.get("toStreet"), this.map.get("toState"),
+							this.map.get("toCity"), this.map.get("toZip")),
+					Protection.valueOf(this.map.get("lType").toUpperCase()), Long.parseLong(this.map.get("id")));
+			break;
+		case "B":
+			rtn = new Box(
+					new Address(this.map.get("fromName"), this.map.get("fromStreet"), this.map.get("fromState"),
+							this.map.get("fromCity"), this.map.get("fromZip")),
+					new Address(this.map.get("toName"), this.map.get("toStreet"), this.map.get("toState"),
+							this.map.get("toCity"), this.map.get("toZip")),
+					Integer.parseInt(this.map.get("height")), Integer.parseInt(this.map.get("width")),
+					Integer.parseInt(this.map.get("depth")), Long.parseLong(this.map.get("id")));
+		}
+
+		return rtn;
 	}
 
 }

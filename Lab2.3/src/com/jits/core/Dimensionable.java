@@ -1,6 +1,6 @@
 package com.jits.core;
 
-interface Dimensionable {
+public interface Dimensionable {
 
 	int height();
 

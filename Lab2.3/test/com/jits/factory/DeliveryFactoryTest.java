@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.jits.core.Delivery;
+import com.jits.core.Dimensionable;
 import com.jits.core.Protectable;
 import com.jits.core.Protection;
 import com.jits.factory.DeliveryFactory;
@@ -16,52 +17,67 @@ public class DeliveryFactoryTest {
 	private DeliveryFactory factory;
 	private Delivery letterAir;
 	private Delivery letterGround;
-	private HashMap<String, String> mapAir = new HashMap<String, String>();
-	private HashMap<String, String> mapGround = new HashMap<String, String>();
+	private Delivery boxAir;
+	private HashMap<String, String> letterAirMap = new HashMap<String, String>();
+	private HashMap<String, String> letterGroundMap = new HashMap<String, String>();
+	private HashMap<String, String> boxAirMap = new HashMap<String, String>();
 
 	@Before
 	public void setUp() throws Exception {
 		factory = new DeliveryFactory();
 
-		mapAir.put("type", "LA");
-		mapAir.put("id", "87");
-
-		mapAir.put("toName", "John Doe");
-		mapAir.put("toStreet", "76 Street Lane");
-		mapAir.put("toCity", "Anywhere");
-		mapAir.put("toState", "CA");
-		mapAir.put("toZip", "56789");
-
-		mapAir.put("fromName", "Jane Doe");
-		mapAir.put("fromStreet", "123 Main St.");
-		mapAir.put("fromCity", "Somewhere");
-		mapAir.put("fromState", "GA");
-		mapAir.put("fromZip", "12345");
-		mapAir.put("lType", "plain");
+		letterAirMap.put("type", "LA");
+		letterAirMap.put("id", "87");
+		letterAirMap.put("toName", "John Doe");
+		letterAirMap.put("toStreet", "76 Street Lane");
+		letterAirMap.put("toCity", "Anywhere");
+		letterAirMap.put("toState", "CA");
+		letterAirMap.put("toZip", "56789");
+		letterAirMap.put("fromName", "Jane Doe");
+		letterAirMap.put("fromStreet", "123 Main St.");
+		letterAirMap.put("fromCity", "Somewhere");
+		letterAirMap.put("fromState", "GA");
+		letterAirMap.put("fromZip", "12345");
+		letterAirMap.put("lType", "plain");
 		
-		mapGround.put("type", "LG");
-		mapGround.put("id", "87");
-
-		mapGround.put("toName", "John Doe");
-		mapGround.put("toStreet", "76 Street Lane");
-		mapGround.put("toCity", "Anywhere");
-		mapGround.put("toState", "CA");
-		mapGround.put("toZip", "56789");
-
-		mapGround.put("fromName", "Jane Doe");
-		mapGround.put("fromStreet", "123 Main St.");
-		mapGround.put("fromCity", "Somewhere");
-		mapGround.put("fromState", "GA");
-		mapGround.put("fromZip", "12345");
-		mapGround.put("lType", "plain");
+		letterGroundMap.put("type", "LG");
+		letterGroundMap.put("id", "87");
+		letterGroundMap.put("toName", "John Doe");
+		letterGroundMap.put("toStreet", "76 Street Lane");
+		letterGroundMap.put("toCity", "Anywhere");
+		letterGroundMap.put("toState", "CA");
+		letterGroundMap.put("toZip", "56789");
+		letterGroundMap.put("fromName", "Jane Doe");
+		letterGroundMap.put("fromStreet", "123 Main St.");
+		letterGroundMap.put("fromCity", "Somewhere");
+		letterGroundMap.put("fromState", "GA");
+		letterGroundMap.put("fromZip", "12345");
+		letterGroundMap.put("lType", "plain");
 		
-		letterAir = factory.getDelivery(mapAir);
-		letterGround = factory.getDelivery(mapGround);
+		boxAirMap.put("type", "BA");
+		boxAirMap.put("id", "87");
+		boxAirMap.put("toName", "John Doe");
+		boxAirMap.put("toStreet", "76 Street Lane");
+		boxAirMap.put("toCity", "Anywhere");
+		boxAirMap.put("toState", "CA");
+		boxAirMap.put("toZip", "56789");
+		boxAirMap.put("fromName", "Jane Doe");
+		boxAirMap.put("fromStreet", "123 Main St.");
+		boxAirMap.put("fromCity", "Somewhere");
+		boxAirMap.put("fromState", "GA");
+		boxAirMap.put("fromZip", "12345");
+		boxAirMap.put("height", "5");
+		boxAirMap.put("width", "8");
+		boxAirMap.put("depth", "10");
+		
+		letterAir = factory.getDelivery(letterAirMap);
+		letterGround = factory.getDelivery(letterGroundMap);
+		boxAir = factory.getDelivery(boxAirMap);
 
 	}
 
 	@Test
-	public void testValuesAreBeingUsedToCreateProperObjects() {
+	public void testLetterAir() {
 		assertEquals(87, letterAir.getParcel().getId());
 
 		assertEquals(Protection.PLAIN, ((Protectable) letterAir.getParcel()).protection());
@@ -75,6 +91,12 @@ public class DeliveryFactoryTest {
 		assertEquals("Air", letterAir.getClass().getSimpleName());
 		assertEquals("Ground", letterGround.getClass().getSimpleName());
 
+	}
+	
+	@Test
+	public void testBoxAir() {
+		assertEquals("Box", boxAir.getParcel().getClass().getSimpleName());
+		assertEquals(5, ((Dimensionable) boxAir.getParcel()).height());
 	}
 
 }
