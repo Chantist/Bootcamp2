@@ -43,23 +43,20 @@ class DeliveryFactory {
 		Parcel rtn = null;
 		String parcelType = this.map.get("type").substring(0, 1);
 
+		Address origin = new Address(this.map.get("fromName"), this.map.get("fromStreet"), this.map.get("fromState"),
+				this.map.get("fromCity"), this.map.get("fromZip"));
+		Address destination = new Address(this.map.get("toName"), this.map.get("toStreet"), this.map.get("toState"),
+				this.map.get("toCity"), this.map.get("toZip"));
+
+		Long id = Long.parseLong(this.map.get("id"));
+
 		switch (parcelType) {
 		case "L":
-			rtn = new Letter(
-					new Address(this.map.get("fromName"), this.map.get("fromStreet"), this.map.get("fromState"),
-							this.map.get("fromCity"), this.map.get("fromZip")),
-					new Address(this.map.get("toName"), this.map.get("toStreet"), this.map.get("toState"),
-							this.map.get("toCity"), this.map.get("toZip")),
-					Protection.valueOf(this.map.get("lType").toUpperCase()), Long.parseLong(this.map.get("id")));
+			rtn = new Letter(origin, destination, Protection.valueOf(this.map.get("lType").toUpperCase()), id);
 			break;
 		case "B":
-			rtn = new Box(
-					new Address(this.map.get("fromName"), this.map.get("fromStreet"), this.map.get("fromState"),
-							this.map.get("fromCity"), this.map.get("fromZip")),
-					new Address(this.map.get("toName"), this.map.get("toStreet"), this.map.get("toState"),
-							this.map.get("toCity"), this.map.get("toZip")),
-					Integer.parseInt(this.map.get("height")), Integer.parseInt(this.map.get("width")),
-					Integer.parseInt(this.map.get("depth")), Long.parseLong(this.map.get("id")));
+			rtn = new Box(origin, destination, Integer.parseInt(this.map.get("height")),
+					Integer.parseInt(this.map.get("width")), Integer.parseInt(this.map.get("depth")), id);
 		}
 
 		return rtn;

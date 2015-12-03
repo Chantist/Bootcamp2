@@ -13,7 +13,7 @@ public abstract class Delivery {
 		this.setParcel(parcel);
 	}
 
-	int review() {
+	public int review() {
 		int response = JOptionPane.showConfirmDialog(null, this.toString(), "JITShipping", JOptionPane.YES_NO_OPTION);
 
 		if (response == JOptionPane.YES_OPTION) {
