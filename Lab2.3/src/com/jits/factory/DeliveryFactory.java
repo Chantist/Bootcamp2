@@ -1,6 +1,6 @@
 package com.jits.factory;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import com.jits.core.Address;
 import com.jits.core.Air;
@@ -11,52 +11,57 @@ import com.jits.core.Letter;
 import com.jits.core.Parcel;
 import com.jits.core.Protection;
 
-class DeliveryFactory {
+public abstract class DeliveryFactory {
 
-	private HashMap<String, String> map;
+	private static Map<String, String> map;
 
-	Delivery getDelivery(HashMap<String, String> map) {
-		this.map = map;
+	public static Delivery getDelivery(Map<String, String> letterAirMap) {
+		DeliveryFactory.map = letterAirMap;
 
-		return this.determineDeliveryType();
+		return DeliveryFactory.determineDeliveryType();
 
 	}
 
-	private Delivery determineDeliveryType() {
+	private static Delivery determineDeliveryType() {
 
 		Delivery rtn = null;
-		String deliveryType = this.map.get("type").substring(1, 2);
+		char deliveryType = DeliveryFactory.map.get("type").charAt(1);
+
 		switch (deliveryType) {
-		case "A":
-			rtn = new Air(this.determineParcelType());
+		case 'A':
+			rtn = new Air(DeliveryFactory.determineParcelType());
 			break;
-		case "G":
-			rtn = new Ground(this.determineParcelType());
+		case 'G':
+			rtn = new Ground(DeliveryFactory.determineParcelType());
 			break;
 		}
 
 		return rtn;
 	}
 
-	private Parcel determineParcelType() {
+	private static Parcel determineParcelType() {
 
 		Parcel rtn = null;
-		String parcelType = this.map.get("type").substring(0, 1);
+		long id = Long.parseLong(DeliveryFactory.map.get("id"));
+		char parcelType = DeliveryFactory.map.get("type").charAt(0);
 
-		Address origin = new Address(this.map.get("fromName"), this.map.get("fromStreet"), this.map.get("fromState"),
-				this.map.get("fromCity"), this.map.get("fromZip"));
-		Address destination = new Address(this.map.get("toName"), this.map.get("toStreet"), this.map.get("toState"),
-				this.map.get("toCity"), this.map.get("toZip"));
+		Address origin = new Address(DeliveryFactory.map.get("fromName"), DeliveryFactory.map.get("fromStreet"),
+				DeliveryFactory.map.get("fromState"), DeliveryFactory.map.get("fromCity"),
+				DeliveryFactory.map.get("fromZip"));
 
-		Long id = Long.parseLong(this.map.get("id"));
+		Address destination = new Address(DeliveryFactory.map.get("toName"), DeliveryFactory.map.get("toStreet"),
+				DeliveryFactory.map.get("toState"), DeliveryFactory.map.get("toCity"),
+				DeliveryFactory.map.get("toZip"));
 
 		switch (parcelType) {
-		case "L":
-			rtn = new Letter(origin, destination, Protection.valueOf(this.map.get("lType").toUpperCase()), id);
+		case 'L':
+			rtn = new Letter(origin, destination, Protection.valueOf(DeliveryFactory.map.get("lType").toUpperCase()),
+					id);
 			break;
-		case "B":
-			rtn = new Box(origin, destination, Integer.parseInt(this.map.get("height")),
-					Integer.parseInt(this.map.get("width")), Integer.parseInt(this.map.get("depth")), id);
+		case 'B':
+			rtn = new Box(origin, destination, Integer.parseInt(DeliveryFactory.map.get("height")),
+					Integer.parseInt(DeliveryFactory.map.get("width")),
+					Integer.parseInt(DeliveryFactory.map.get("depth")), id);
 		}
 
 		return rtn;
