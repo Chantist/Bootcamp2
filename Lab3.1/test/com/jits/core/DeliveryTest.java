@@ -19,7 +19,7 @@ public class DeliveryTest {
 
 	@Before
 	public void setUp() {
-		
+
 		grdMap.put("type", "BG");
 		grdMap.put("id", "8934679867");
 		grdMap.put("fromName", "Bucky Barnes");
@@ -35,7 +35,7 @@ public class DeliveryTest {
 		grdMap.put("height", "7");
 		grdMap.put("width", "5");
 		grdMap.put("depth", "6");
-		
+
 		airMap.put("type", "LA");
 		airMap.put("id", "974434120");
 		airMap.put("fromName", "Number One");
@@ -57,6 +57,7 @@ public class DeliveryTest {
 
 	@Test
 	public void testParcelIsOnDelivery() {
+		
 		assertFalse(grd.getParcel() == null);
 		assertFalse(air.getParcel() == null);
 
@@ -64,27 +65,28 @@ public class DeliveryTest {
 
 	@Test
 	public void testGetData() {
-		String expected = "Ground Box" + "\n"
-				+ "From: Bucky Barnes | 123 Main St | Atlanta, GA 30326" + "\n"
-				+ "To: Luke Skywalker | 1111 Star Way | Dusty, CA 90008" + "\n";
-		String actual = grd.toString();
-
-		assertEquals(expected, actual);
+		
+		assertEquals(true, grd.toString().contains("Ground Box"));
+		assertEquals(true, grd.toString().contains("Time until delivery: 3.0 days"));
+		assertEquals(true, grd.toString().contains("From: Bucky Barnes | 123 Main St | Atlanta, GA 30326"));
+		assertEquals(true, grd.toString().contains("To: Luke Skywalker | 1111 Star Way | Dusty, CA 90008"));
 
 	}
-	
+
 	@Test
 	public void testAirDeliveryTime() {
+		
 		double expected = .25;
-		double actual= air.calculateDelivery();
-		assertEquals(expected, actual,.001);
+		double actual = air.calculateDeliveryTime();
+		assertEquals(expected, actual, .001);
 	}
-	
+
 	@Test
 	public void testGroundDeliveryTime() {
+		
 		double expected = 3;
-		double actual= grd.calculateDelivery();
-		assertEquals(expected, actual,.001);
+		double actual = grd.calculateDeliveryTime();
+		assertEquals(expected, actual, .001);
 	}
 
 }

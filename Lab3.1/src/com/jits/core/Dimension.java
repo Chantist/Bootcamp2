@@ -7,6 +7,7 @@ class Dimension {
 	private int depth;
 
 	public Dimension(int height, int width, int depth) {
+		
 		this.setHeight(height);
 		this.setWidth(width);
 		this.setDepth(depth);

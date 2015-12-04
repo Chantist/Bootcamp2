@@ -5,6 +5,7 @@ package com.jits.core;
 	private Dimension dimension;
 
 	public Box(Address from, Address to, int h, int w, int d, long id) {
+		
 		super(from, to, id);
 		this.setDimension(new Dimension(h, w, d));
 

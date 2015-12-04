@@ -13,13 +13,15 @@ public abstract class Delivery {
 	private double zoneFactor;
 
 	public Delivery(Parcel parcel, double zoneFactor) {
+		
 		this.setParcel(parcel);
 		this.setZoneFactor(zoneFactor);
 	}
 
-	abstract double calculateDelivery();
+	abstract double calculateDeliveryTime();
 
 	Map<String, Integer> getFirstDigitOfParcelZipcodes() {
+		
 		Map<String, Integer> firstDigits = new HashMap<String, Integer>();
 
 		firstDigits.put("origin", Integer.parseInt(this.getParcel().getFrom().getZipcode().substring(0, 1)));
@@ -30,6 +32,7 @@ public abstract class Delivery {
 	}
 
 	public int review() {
+		
 		int response = JOptionPane.showConfirmDialog(null, this.toString(), "JITShipping", JOptionPane.YES_NO_OPTION);
 
 		if (response == JOptionPane.YES_OPTION) {
@@ -42,19 +45,24 @@ public abstract class Delivery {
 	}
 
 	String ship() {
+		
 		return "Parcel has been shipped by " + this.getClass().getSimpleName().toLowerCase() + ".";
 	}
 
 	String cancel() {
+		
 		return "Delivery has been cancelled.";
 	}
 
 	@Override
 	public String toString() {
+		
 		List<String> information = new ArrayList<String>();
 		StringBuilder review = new StringBuilder();
 
 		information.add(this.getClass().getSimpleName() + " " + this.getParcel().getClass().getSimpleName());
+		information.add("Weight: " + this.getParcel().getWeight());
+		information.add("Time until delivery: " + this.calculateDeliveryTime() + " days");
 		information.add("From: " + this.getParcel().getFrom().toString());
 		information.add("To: " + this.getParcel().getTo().toString());
 

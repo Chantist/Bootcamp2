@@ -6,10 +6,12 @@ import java.util.TreeMap;
 public class Ground extends Delivery {
 
 	public Ground(Parcel parcel) {
+		
 		super(parcel, 1.5);
 	}
 
 	private int determineZoneDifference() {
+		
 		NavigableMap<Integer, Integer> zones = new TreeMap<Integer, Integer>();
 		zones.put(0, 1);
 		zones.put(3, 2);
@@ -23,7 +25,7 @@ public class Ground extends Delivery {
 	}
 
 	@Override
-	double calculateDelivery() {
+	double calculateDeliveryTime() {
 
 		double time = -1;
 

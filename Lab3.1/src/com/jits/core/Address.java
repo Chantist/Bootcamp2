@@ -9,6 +9,7 @@ public class Address {
 	private String zipcode;
 
 	public Address(String name, String street, String state, String city, String zipcode) {
+
 		this.setName(name);
 		this.setStreet(street);
 		this.setState(state);
@@ -18,6 +19,7 @@ public class Address {
 
 	@Override
 	public String toString() {
+
 		return this.getName() + " | " + this.getStreet() + " | " + this.getCity() + ", " + this.getState() + " "
 				+ this.getZipcode();
 	}
