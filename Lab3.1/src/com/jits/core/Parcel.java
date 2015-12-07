@@ -1,7 +1,5 @@
 package com.jits.core;
 
-import com.thirdParty.calibration.MailScale;
-
 public abstract class Parcel {
 
 	private long id;
@@ -10,7 +8,7 @@ public abstract class Parcel {
 	private double weight;
 
 	public Parcel(Address from, Address to, long id) {
-		
+
 		this.setId(id);
 		this.setFrom(from);
 		this.setTo(to);
@@ -19,7 +17,7 @@ public abstract class Parcel {
 
 	double weighParcel() {
 
-		return Math.ceil(new MailScale().calculateWeight(this));
+		return ((Weighable) ScaleAdapter.getInstance()).weigh(this);
 	}
 
 	private void setId(long id) {

@@ -6,36 +6,37 @@ import java.util.TreeMap;
 public class Ground extends Delivery {
 
 	public Ground(Parcel parcel) {
-		
-		super(parcel, 1.5);
-	}
 
-	private int determineZoneDifference() {
-		
-		NavigableMap<Integer, Integer> zones = new TreeMap<Integer, Integer>();
-		zones.put(0, 1);
-		zones.put(3, 2);
-		zones.put(6, 3);
-		zones.put(8, 4);
-
-		int origin = zones.get(zones.floorKey(this.getFirstDigitOfParcelZipcodes().get("origin")));
-		int dest = zones.get(zones.floorKey(this.getFirstDigitOfParcelZipcodes().get("dest")));
-
-		return Math.abs(dest - origin);
+		super(parcel);
 	}
 
 	@Override
 	double calculateDeliveryTime() {
 
 		double time = -1;
+		int zoneDifference = this.determineZoneDifference();
 
-		if (this.determineZoneDifference() == 0) {
+		if (zoneDifference == 0) {
 			time = 1;
 		} else {
-			time = this.determineZoneDifference() * this.getZoneFactor();
+			time = zoneDifference * 1.5;
 		}
 
 		return time;
+	}
+
+	private int determineZoneDifference() {
+
+		NavigableMap<Integer, Integer> zones = new TreeMap<Integer, Integer>();
+		zones.put(0, 1);
+		zones.put(3, 2);
+		zones.put(6, 3);
+		zones.put(8, 4);
+
+		int start = zones.get(zones.floorKey(super.getFromZone()));
+		int end = zones.get(zones.floorKey(super.getToZone()));
+
+		return Math.abs(end - start);
 	}
 
 }

@@ -1,38 +1,31 @@
 package com.jits.core;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.JOptionPane;
 
 public abstract class Delivery {
 
 	private Parcel parcel;
-	private double zoneFactor;
+	private int fromZone;
+	private int toZone;
 
-	public Delivery(Parcel parcel, double zoneFactor) {
-		
+	public Delivery(Parcel parcel) {
+
 		this.setParcel(parcel);
-		this.setZoneFactor(zoneFactor);
+		this.setFromZone(this.getFirstDigitOfZipcodeAsInt(this.getParcel().getFrom().getZipcode()));
+		this.setToZone(this.getFirstDigitOfZipcodeAsInt(this.getParcel().getTo().getZipcode()));
 	}
 
 	abstract double calculateDeliveryTime();
 
-	Map<String, Integer> getFirstDigitOfParcelZipcodes() {
-		
-		Map<String, Integer> firstDigits = new HashMap<String, Integer>();
-
-		firstDigits.put("origin", Integer.parseInt(this.getParcel().getFrom().getZipcode().substring(0, 1)));
-		firstDigits.put("dest", Integer.parseInt(this.getParcel().getTo().getZipcode().substring(0, 1)));
-
-		return firstDigits;
-
+	private int getFirstDigitOfZipcodeAsInt(String zip) {
+		return Integer.parseInt(zip.substring(0, 1));
 	}
 
 	public int review() {
-		
+
 		int response = JOptionPane.showConfirmDialog(null, this.toString(), "JITShipping", JOptionPane.YES_NO_OPTION);
 
 		if (response == JOptionPane.YES_OPTION) {
@@ -45,18 +38,18 @@ public abstract class Delivery {
 	}
 
 	String ship() {
-		
+
 		return "Parcel has been shipped by " + this.getClass().getSimpleName().toLowerCase() + ".";
 	}
 
 	String cancel() {
-		
+
 		return "Delivery has been cancelled.";
 	}
 
 	@Override
 	public String toString() {
-		
+
 		List<String> information = new ArrayList<String>();
 		StringBuilder review = new StringBuilder();
 
@@ -82,12 +75,20 @@ public abstract class Delivery {
 		this.parcel = parcel;
 	}
 
-	double getZoneFactor() {
-		return zoneFactor;
+	int getToZone() {
+		return toZone;
 	}
 
-	private void setZoneFactor(double zoneFactor) {
-		this.zoneFactor = zoneFactor;
+	private void setToZone(int toZone) {
+		this.toZone = toZone;
+	}
+
+	int getFromZone() {
+		return fromZone;
+	}
+
+	private void setFromZone(int fromZone) {
+		this.fromZone = fromZone;
 	}
 
 }
