@@ -3,14 +3,16 @@ package com.jits.core;
 import java.util.NavigableMap;
 import java.util.TreeMap;
 
-import com.jits.core.cost.GroundCost;
-
 public class Ground extends Delivery {
 	private static NavigableMap<Integer, Integer> zones = new TreeMap<Integer, Integer>();
+	private int origin;
+	private int dest;
 
 	public Ground(Parcel parcel) {
 
 		super(parcel);
+		this.setOrigin(Ground.zones.get(zones.floorKey(super.getFromZone())));
+		this.setDest(Ground.zones.get(zones.floorKey(super.getToZone())));
 
 	}
 
@@ -21,34 +23,41 @@ public class Ground extends Delivery {
 		zones.put(6, 3);
 		zones.put(8, 4);
 	}
+	
+	@Override
+	public int calculateZoneDifference() { 
+		
+		return Math.abs(this.getDest() - this.getOrigin());
+	}
 
 	@Override
 	double calculateDeliveryTime() {
 
 		double time = -1;
 
-		int origin = Ground.zones.get(zones.floorKey(super.getFromZone()));
-		int dest = Ground.zones.get(zones.floorKey(super.getToZone()));
-
-		if (super.calculateZoneDifference(dest, origin) == 0) {
+		if (this.calculateZoneDifference() == 0) {
 			time = 1;
 		} else {
-			time = super.calculateZoneDifference(origin, dest) * 1.5;
+			time = this.calculateZoneDifference() * 1.5;
 		}
 
 		return time;
 	}
 
-	@Override
-	double determineCost() {
+	private int getOrigin() {
+		return origin;
+	}
 
-		int origin = Ground.zones.get(zones.floorKey(super.getFromZone()));
-		int dest = Ground.zones.get(zones.floorKey(super.getToZone()));
+	private void setOrigin(int origin) {
+		this.origin = origin;
+	}
 
-		double rtn = new GroundCost(super.calculateZoneDifference(origin, dest), this.getParcel().getWeight(),
-				super.getToZone(), super.getFromZone()).calculateCost();
+	private int getDest() {
+		return dest;
+	}
 
-		return rtn;
+	private void setDest(int dest) {
+		this.dest = dest;
 	}
 
 }

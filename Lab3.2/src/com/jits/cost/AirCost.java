@@ -1,13 +1,14 @@
-package com.jits.core.cost;
+package com.jits.cost;
 
 public class AirCost extends Cost {
+	
 	private double volume;
-
+	
 	public AirCost(int zoneDifference, double weight, double volume) {
 
 		super(zoneDifference, weight);
 		
-		this.setVolume(this.getConverter().convertFromInchesToFeet(volume));
+		this.setVolume(volume);
 	}
 
 	@Override
@@ -25,7 +26,7 @@ public class AirCost extends Cost {
 
 	private void setVolume(double volume) {
 
-		this.volume = volume;
+		this.volume = this.getConverter().convertFromInchesToCubicFeet(volume);
 	}
 
 }

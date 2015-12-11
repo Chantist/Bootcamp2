@@ -59,7 +59,7 @@ public abstract class Parcel {
 		this.weight = weight;
 	}
 
-	int volume() {
+	public int volume() {
 		return 1;
 	}
 

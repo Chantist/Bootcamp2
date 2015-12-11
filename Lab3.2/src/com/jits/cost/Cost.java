@@ -1,44 +1,35 @@
-package com.jits.core.cost;
+package com.jits.cost;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
-import com.jits.core.conversion.Conversion;
+import com.jits.conversion.Conversion;
 
-abstract class Cost {
+public abstract class Cost {
 	private int zoneDifference;
-	private double weight;
+	private double weight = -1;
 	private Conversion converter = new Conversion();
 
 	Cost(int zoneDifference, double weight) {
 
 		this.setZoneDifference(zoneDifference);
 
-		if (weight >= 1) {
-			this.setWeight(this.getConverter().convertFromOuncesToPounds(weight));
-		} else {
-			this.setWeight(1);
-		}
-
+		this.setWeight(weight);
 	}
 
-	abstract double calculateCost();
-	
+	public abstract double calculateCost();
+
 	double roundToTwoDecimalPlaces(double number) {
-		
+
 		NumberFormat formatter = new DecimalFormat("#0.00");
-		formatter.setRoundingMode(RoundingMode.FLOOR);
-		
+		formatter.setRoundingMode(RoundingMode.DOWN);
+
 		return Double.parseDouble(formatter.format(number));
 	}
 
 	Conversion getConverter() {
 		return converter;
-	}
-
-	void setConverter(Conversion converter) {
-		this.converter = converter;
 	}
 
 	int getZoneDifference() {
@@ -49,12 +40,12 @@ abstract class Cost {
 		this.zoneDifference = zoneDifference;
 	}
 
-	double getWeight() {
+	public double getWeight() {
 		return weight;
 	}
 
 	private void setWeight(double weight) {
-		this.weight = weight;
+		this.weight = this.getConverter().convertFromOuncesToPounds(weight);
 	}
 
 }

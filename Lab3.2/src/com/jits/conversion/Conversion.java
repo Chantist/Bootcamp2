@@ -1,10 +1,10 @@
-package com.jits.core.conversion;
+package com.jits.conversion;
 
 public class Conversion {
 
-	public double convertFromInchesToFeet(double in) {
+	public double convertFromInchesToCubicFeet(double in) {
 
-		return in / 12;
+		return in / (12 * 12 * 12);
 	}
 
 	public double convertFromOuncesToPounds(double ounces) {

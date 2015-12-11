@@ -1,6 +1,7 @@
-package com.jits.core.cost;
+package com.jits.cost;
 
 public class GroundCost extends Cost {
+	
 	private int to;
 	private int from;
 
@@ -23,9 +24,10 @@ public class GroundCost extends Cost {
 
 	@Override
 	public double calculateCost() {
-
+		
 		double cost = this.getZoneDifference() * this.getWeight() * 1.1;
-		cost -= cost * this.determineDiscount();
+		double discount = cost * this.determineDiscount();
+		cost -= discount;
 
 		return super.roundToTwoDecimalPlaces(cost);
 

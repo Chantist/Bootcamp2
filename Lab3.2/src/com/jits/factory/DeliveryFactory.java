@@ -10,6 +10,8 @@ import com.jits.core.Ground;
 import com.jits.core.Letter;
 import com.jits.core.Parcel;
 import com.jits.core.Protection;
+import com.jits.cost.AirCost;
+import com.jits.cost.GroundCost;
 
 public abstract class DeliveryFactory {
 
@@ -26,13 +28,20 @@ public abstract class DeliveryFactory {
 
 		Delivery rtn = null;
 		char deliveryType = DeliveryFactory.map.get("type").charAt(1);
+		Parcel parcel = DeliveryFactory.determineParcelType();
 
 		switch (deliveryType) {
 		case 'A':
-			rtn = new Air(DeliveryFactory.determineParcelType());
+
+			rtn = new Air(parcel);
+			rtn.setCost(
+					new AirCost(rtn.calculateZoneDifference(), rtn.getParcel().getWeight(), rtn.getParcel().volume()));
 			break;
 		case 'G':
-			rtn = new Ground(DeliveryFactory.determineParcelType());
+
+			rtn = new Ground(parcel);
+			rtn.setCost(new GroundCost(rtn.calculateZoneDifference(), rtn.getParcel().getWeight(), rtn.getToZone(),
+					rtn.getFromZone()));
 			break;
 		}
 

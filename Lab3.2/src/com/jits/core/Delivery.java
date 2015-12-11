@@ -3,13 +3,16 @@ package com.jits.core;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JOptionPane;
+import com.jits.cost.Cost;
+import com.jits.transfer.ConfirmationBean;
 
 public abstract class Delivery {
 
 	private Parcel parcel;
 	private int fromZone;
 	private int toZone;
+	private Cost cost;
+	private String status;
 
 	public Delivery(Parcel parcel) {
 
@@ -17,15 +20,20 @@ public abstract class Delivery {
 		this.setFromZone(this.getFirstDigitOfZipcodeAsInt(this.getParcel().getFrom().getZipcode()));
 		this.setToZone(this.getFirstDigitOfZipcodeAsInt(this.getParcel().getTo().getZipcode()));
 		this.getParcel().weighParcel();
+		this.setStatus("Pending");
 	}
 
 	abstract double calculateDeliveryTime();
-	abstract double determineCost();
 
-	int calculateZoneDifference(int origin, int dest) {
-		
-		int rtn = Math.abs(dest - origin);
-		
+	private double determineCost() {
+
+		return this.getCost().calculateCost();
+	}
+
+	public int calculateZoneDifference() {
+
+		int rtn = Math.abs(this.getToZone() - this.getFromZone());
+
 		if (rtn == 0) {
 			rtn = 1;
 		}
@@ -38,26 +46,19 @@ public abstract class Delivery {
 		return Integer.parseInt(zip.substring(0, 1));
 	}
 
-	public int review() {
-
-		int response = JOptionPane.showConfirmDialog(null, this.toString(), "JITShipping", JOptionPane.YES_NO_OPTION);
-
-		if (response == JOptionPane.YES_OPTION) {
-			JOptionPane.showMessageDialog(null, this.ship());
-		} else {
-			JOptionPane.showMessageDialog(null, this.cancel());
-		}
-
-		return response;
+	public ConfirmationBean review() {
+		return new ConfirmationBean(this.getStatus(), this.getParcel().getFrom(), this.getParcel().getTo(),
+				this.getParcel().getClass().getSimpleName(), this.getClass().getSimpleName(),
+				this.getParcel().getWeight(), this.calculateDeliveryTime(), this.cost());
 	}
 
 	String ship() {
-
+		this.setStatus("Shipped");
 		return "Parcel has been shipped by " + this.getClass().getSimpleName().toLowerCase() + ".";
 	}
 
 	String cancel() {
-
+		this.setStatus("Cancelled");
 		return "Delivery has been cancelled.";
 	}
 
@@ -79,9 +80,8 @@ public abstract class Delivery {
 
 		return review.toString();
 	}
-	
+
 	double cost() {
-		
 		return this.determineCost();
 	}
 
@@ -93,7 +93,7 @@ public abstract class Delivery {
 		this.parcel = parcel;
 	}
 
-	int getToZone() {
+	public int getToZone() {
 		return toZone;
 	}
 
@@ -101,12 +101,28 @@ public abstract class Delivery {
 		this.toZone = toZone;
 	}
 
-	int getFromZone() {
+	public int getFromZone() {
 		return fromZone;
 	}
 
 	private void setFromZone(int fromZone) {
 		this.fromZone = fromZone;
+	}
+
+	Cost getCost() {
+		return cost;
+	}
+
+	public void setCost(Cost cost) {
+		this.cost = cost;
+	}
+
+	String getStatus() {
+		return status;
+	}
+
+	private void setStatus(String status) {
+		this.status = status;
 	}
 
 }

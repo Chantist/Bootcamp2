@@ -2,6 +2,9 @@ package com.jits.core;
 
 import static org.junit.Assert.*;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.jits.factory.DeliveryFactory;
+import com.jits.transfer.ConfirmationBean;
 
 public class DeliveryTest {
 
@@ -16,6 +20,7 @@ public class DeliveryTest {
 	private Delivery air;
 	private Map<String, String> grdMap = new HashMap<String, String>();
 	private Map<String, String> airMap = new HashMap<String, String>();
+	private NumberFormat formatter = new DecimalFormat("#0.00");
 
 	@Before
 	public void setUp() {
@@ -52,6 +57,8 @@ public class DeliveryTest {
 
 		grd = DeliveryFactory.getDelivery(grdMap);
 		air = DeliveryFactory.getDelivery(airMap);
+
+		formatter.setRoundingMode(RoundingMode.DOWN);
 
 	}
 
@@ -92,17 +99,34 @@ public class DeliveryTest {
 	@Test
 	public void testAirCost() {
 
-		air.getParcel().setWeight(12);
-		assertEquals(0.10, air.cost(), .001);
+		double expectedNotRounded = grd.calculateZoneDifference() * (grd.getParcel().getWeight() / 16)
+				* (grd.getParcel().volume() / 1728) * 1.75;
+
+		assertEquals(Double.parseDouble(formatter.format(expectedNotRounded)), air.cost(), .001);
 	}
 
 	@Test
 	public void testGroundCost() {
-		
-		grd = DeliveryFactory.getDelivery(grdMap);
-		grd.getParcel().setWeight(12);
-		
-		assertEquals(1.65, grd.cost(), .001);
+
+		double expectedNotRounded = grd.calculateZoneDifference() * (grd.getParcel().getWeight() / 16) * 1.1 - 0;
+
+		assertEquals(Double.parseDouble(formatter.format(expectedNotRounded)), grd.cost(), .001);
+	}
+
+	@Test
+	public void testReview() {
+
+		ConfirmationBean review = grd.review();
+
+		assertEquals(grd.getStatus(), review.getStatus());
+		assertEquals(grd.getParcel().getFrom(), review.getOrigin());
+		assertEquals(grd.getParcel().getTo(), review.getDest());
+		assertEquals(grd.calculateDeliveryTime(), review.getDeliveryTime(), .001);
+		assertEquals(grd.cost(), review.getCost(), .001);
+		assertEquals(grd.getParcel().getWeight(), review.getWeight(), .001);
+		assertEquals(grd.getClass().getSimpleName(), review.getDeliveryType());
+		assertEquals(grd.getParcel().getClass().getSimpleName(), review.getPackageType());
+
 	}
 
 }

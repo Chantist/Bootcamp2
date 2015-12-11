@@ -1,9 +1,11 @@
-package com.jits.core.conversion;
+package com.jits.conversion;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import com.jits.conversion.Conversion;
 
 public class ConversionTest {
 	Conversion convert;
@@ -16,10 +18,10 @@ public class ConversionTest {
 	@Test
 	public void testConvertInchestoFeet() {
 
-		assertEquals(5, convert.convertFromInchesToFeet(60), .001);
-		assertEquals(3.0833333333333335, convert.convertFromInchesToFeet(37), .001);
-		assertEquals(1.5, convert.convertFromInchesToFeet(18), .001);
-		assertEquals(0.07333333333333333, convert.convertFromInchesToFeet(.88), .001);
+		assertEquals(0.03472222222, convert.convertFromInchesToCubicFeet(60), .001);
+		assertEquals(0.02141203704, convert.convertFromInchesToCubicFeet(37), .001);
+		assertEquals(0.01041666667, convert.convertFromInchesToCubicFeet(18), .001);
+		assertEquals(0.0005092592593, convert.convertFromInchesToCubicFeet(.88), .001);
 	}
 
 	@Test

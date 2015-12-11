@@ -35,7 +35,7 @@ package com.jits.core;
 	}
 	
 	@Override
-	int volume() {
+	public int volume() {
 		return this.height() * this.width() * this.depth();
 	}
 	
