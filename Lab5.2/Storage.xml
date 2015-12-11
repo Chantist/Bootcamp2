@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.7.0_79" class="java.beans.XMLDecoder">
+ <object class="com.jits.transfer.ConfirmationBean" id="ConfirmationBean0">
+  <void property="cost">
+   <double>5.0</double>
+  </void>
+  <void property="deliveryTime">
+   <double>10.0</double>
+  </void>
+  <void property="deliveryType">
+   <string>Rail</string>
+  </void>
+  <void property="dest">
+   <object class="com.jits.core.Address">
+    <void property="city">
+     <string>Drought</string>
+    </void>
+    <void property="name">
+     <string>Dri Nowaterr</string>
+    </void>
+    <void property="state">
+     <string>ID</string>
+    </void>
+    <void property="street">
+     <string>89 Vacation Circle</string>
+    </void>
+    <void property="zipcode">
+     <string>90008</string>
+    </void>
+   </object>
+  </void>
+  <void property="origin">
+   <object class="com.jits.core.Address">
+    <void property="city">
+     <string>Atlanta</string>
+    </void>
+    <void property="name">
+     <string>Number One</string>
+    </void>
+    <void property="state">
+     <string>GA</string>
+    </void>
+    <void property="street">
+     <string>789 Onetwothree St</string>
+    </void>
+    <void property="zipcode">
+     <string>31111</string>
+    </void>
+   </object>
+  </void>
+  <void property="packageType">
+   <string>Letter</string>
+  </void>
+  <void property="review">
+   <void method="add">
+    <string>Status: Pending</string>
+   </void>
+   <void method="add">
+    <string>Origin: Number One | 789 Onetwothree St | Atlanta, GA 31111</string>
+   </void>
+   <void method="add">
+    <string>Destination: Dri Nowaterr | 89 Vacation Circle | Drought, ID 90008</string>
+   </void>
+   <void method="add">
+    <string>Delivery type: Rail</string>
+   </void>
+   <void method="add">
+    <string>Package type: Letter</string>
+   </void>
+   <void method="add">
+    <string>Weight: 9.0</string>
+   </void>
+   <void method="add">
+    <string>Time: 10.0</string>
+   </void>
+   <void method="add">
+    <string>Cost: 5.0</string>
+   </void>
+  </void>
+  <void property="status">
+   <string>Pending</string>
+  </void>
+  <void property="weight">
+   <double>9.0</double>
+  </void>
+ </object>
+</java>
