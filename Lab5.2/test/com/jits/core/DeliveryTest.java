@@ -177,7 +177,6 @@ public class DeliveryTest {
 		assertEquals(rail.getParcel().getWeight(), result.getWeight(), .001);
 		assertEquals(rail.getParcel().getFrom().toString(), result.getOrigin().toString());
 		assertEquals(rail.getParcel().getTo().toString(), result.getDest().toString());
-
 	}
 
 }

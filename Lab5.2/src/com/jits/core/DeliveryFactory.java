@@ -43,8 +43,6 @@ abstract class DeliveryFactory {
 			break;
 		}
 
-		rtn.review();
-
 		return rtn;
 	}
 

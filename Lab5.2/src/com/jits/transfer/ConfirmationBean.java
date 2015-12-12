@@ -38,7 +38,6 @@ public class ConfirmationBean implements IConfirmation, Serializable {
 		this.setDeliveryTime(deliveryTime);
 		this.setCost(cost);
 		this.setInsurance(insurance);
-
 		this.populateReviewList();
 	}
 

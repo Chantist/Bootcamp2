@@ -102,7 +102,6 @@ public class DeliveryFactoryTest {
 		assertEquals(Protection.PLAIN, ((Protectable) letterAir.getParcel()).protection());
 		assertEquals(true, letterAir.getParcel().getFrom().toString().contains("Jane Doe"));
 		assertEquals(true, letterAir.getParcel().getTo().toString().contains("John Doe"));
-		assertEquals(false, letterAir.getParcel().getInsurance());
 	}
 
 	@Test
@@ -114,14 +113,14 @@ public class DeliveryFactoryTest {
 	@Test
 	public void testBoxAir() {
 		assertEquals("Box", boxAir.getParcel().getClass().getSimpleName());
-		assertEquals(true, boxAir.getParcel().getInsurance());
+		assertEquals(true, ((Insurable) boxAir.getParcel()).getInsurance());
 		assertEquals(5, ((Dimensionable) boxAir.getParcel()).height());
 	}
 
 	@Test
 	public void testBoxGround() {
 		assertEquals("Box", boxGround.getParcel().getClass().getSimpleName());
-		assertEquals(false, boxGround.getParcel().getInsurance());
+		assertEquals(false, ((Insurable) boxGround.getParcel()).getInsurance());
 		assertEquals(8, ((Dimensionable) boxGround.getParcel()).width());
 	}
 

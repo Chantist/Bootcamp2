@@ -2,27 +2,27 @@
 <java version="1.7.0_79" class="java.beans.XMLDecoder">
  <object class="com.jits.transfer.ConfirmationBean" id="ConfirmationBean0">
   <void property="cost">
-   <double>5.0</double>
+   <double>7.15</double>
   </void>
   <void property="deliveryTime">
-   <double>10.0</double>
+   <double>3.0</double>
   </void>
   <void property="deliveryType">
-   <string>Rail</string>
+   <string>Ground</string>
   </void>
   <void property="dest">
    <object class="com.jits.core.Address">
     <void property="city">
-     <string>Drought</string>
+     <string>Dusty</string>
     </void>
     <void property="name">
-     <string>Dri Nowaterr</string>
+     <string>Luke Skywalker</string>
     </void>
     <void property="state">
-     <string>ID</string>
+     <string>CA</string>
     </void>
     <void property="street">
-     <string>89 Vacation Circle</string>
+     <string>1111 Star Way</string>
     </void>
     <void property="zipcode">
      <string>90008</string>
@@ -35,53 +35,53 @@
      <string>Atlanta</string>
     </void>
     <void property="name">
-     <string>Number One</string>
+     <string>Bucky Barnes</string>
     </void>
     <void property="state">
      <string>GA</string>
     </void>
     <void property="street">
-     <string>789 Onetwothree St</string>
+     <string>123 Main St</string>
     </void>
     <void property="zipcode">
-     <string>31111</string>
+     <string>30326</string>
     </void>
    </object>
   </void>
   <void property="packageType">
-   <string>Letter</string>
+   <string>Box</string>
   </void>
   <void property="review">
    <void method="add">
     <string>Status: Pending</string>
    </void>
    <void method="add">
-    <string>Origin: Number One | 789 Onetwothree St | Atlanta, GA 31111</string>
+    <string>Origin: Bucky Barnes | 123 Main St | Atlanta, GA 30326</string>
    </void>
    <void method="add">
-    <string>Destination: Dri Nowaterr | 89 Vacation Circle | Drought, ID 90008</string>
+    <string>Destination: Luke Skywalker | 1111 Star Way | Dusty, CA 90008</string>
    </void>
    <void method="add">
-    <string>Delivery type: Rail</string>
+    <string>Delivery type: Ground</string>
    </void>
    <void method="add">
-    <string>Package type: Letter</string>
+    <string>Package type: Box</string>
    </void>
    <void method="add">
-    <string>Weight: 9.0</string>
+    <string>Weight: 52.0</string>
    </void>
    <void method="add">
-    <string>Time: 10.0</string>
+    <string>Time: 3.0</string>
    </void>
    <void method="add">
-    <string>Cost: 5.0</string>
+    <string>Cost: 7.15</string>
    </void>
   </void>
   <void property="status">
    <string>Pending</string>
   </void>
   <void property="weight">
-   <double>9.0</double>
+   <double>52.0</double>
   </void>
  </object>
 </java>

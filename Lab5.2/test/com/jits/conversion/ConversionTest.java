@@ -21,7 +21,7 @@ public class ConversionTest {
 		assertEquals(0.03472222222, convert.convertFromInchesToCubicFeet(60), .001);
 		assertEquals(0.02141203704, convert.convertFromInchesToCubicFeet(37), .001);
 		assertEquals(0.01041666667, convert.convertFromInchesToCubicFeet(18), .001);
-		assertEquals(0.0005092592593, convert.convertFromInchesToCubicFeet(.88), .001);
+		assertEquals(1, convert.convertFromInchesToCubicFeet(.88), .001);
 	}
 
 	@Test

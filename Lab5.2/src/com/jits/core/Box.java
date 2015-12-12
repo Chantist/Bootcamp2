@@ -1,6 +1,6 @@
 package com.jits.core;
 
- class Box extends Parcel implements Dimensionable {
+ class Box extends Parcel implements Dimensionable, Insurable {
 
 	private Dimension dimension;
 	private boolean insurance;

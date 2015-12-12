@@ -62,9 +62,5 @@ abstract class Parcel {
 	public double volume() {
 		return 1.0;
 	}
-	
-	public boolean getInsurance() {
-		return false;
-	}
 
 }

@@ -23,7 +23,7 @@ public class ParcelTest {
 	@Test
 	public void testNewBox() {
 		
-		assertEquals(true, box.getInsurance());
+		assertEquals(true, ((Insurable) box).getInsurance());
 		assertEquals(5, ((Dimensionable) box).height());
 		assertEquals(8, ((Dimensionable) box).width());
 		assertEquals(10, ((Dimensionable) box).depth());
@@ -35,7 +35,6 @@ public class ParcelTest {
 		long expected = 12345;
 		long actual = letter.getId();
 		assertEquals(expected, actual);
-		assertEquals(false, letter.getInsurance());
 	}
 
 	@Test

@@ -50,13 +50,13 @@ abstract class Delivery {
 
 	}
 
-	final String prepareDelivery() {
+	final String prepare() {
 		List<String> strings = new ArrayList<String>();
 		strings.add("Cost: " + this.determineCost());
 		strings.add("Delivery time: " + this.calculateDeliveryTime());
 
-		if (this.getParcel().getClass().getName() == "Box") {
-			strings.add("Insured: " + this.getParcel().getInsurance());
+		if (this.getParcel() instanceof Insurable) {
+			strings.add("Insured: " + ((Insurable) this.getParcel()).getInsurance());
 		}
 
 		StringBuilder builder = new StringBuilder();
@@ -81,10 +81,18 @@ abstract class Delivery {
 	}
 
 	ConfirmationBean review() {
-		ConfirmationBean rtn = new ConfirmationBean(this.getStatus(), this.getParcel().getFrom(),
-				this.getParcel().getTo(), this.getParcel().getClass().getSimpleName(), this.getClass().getSimpleName(),
-				this.getParcel().getWeight(), this.calculateDeliveryTime(), this.cost(),
-				this.getParcel().getInsurance());
+		ConfirmationBean rtn = null;
+
+		if (this.getParcel() instanceof Insurable) {
+			rtn = new ConfirmationBean(this.getStatus(), this.getParcel().getFrom(), this.getParcel().getTo(),
+					this.getParcel().getClass().getSimpleName(), this.getClass().getSimpleName(),
+					this.getParcel().getWeight(), this.calculateDeliveryTime(), this.cost(),
+					((Insurable) this.getParcel()).getInsurance());
+		} else {
+			rtn = new ConfirmationBean(this.getStatus(), this.getParcel().getFrom(), this.getParcel().getTo(),
+					this.getParcel().getClass().getSimpleName(), this.getClass().getSimpleName(),
+					this.getParcel().getWeight(), this.calculateDeliveryTime(), this.cost(), false);
+		}
 
 		this.log(rtn);
 
