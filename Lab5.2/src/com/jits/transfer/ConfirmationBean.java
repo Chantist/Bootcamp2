@@ -21,9 +21,9 @@ public class ConfirmationBean implements IConfirmation, Serializable {
 	private double cost;
 	private boolean insurance;
 	private List<String> review = new ArrayList<String>();
-	
+
 	public ConfirmationBean() {
-		
+
 	}
 
 	public ConfirmationBean(String status, Address origin, Address dest, String packageType, String deliveryType,
@@ -155,7 +155,7 @@ public class ConfirmationBean implements IConfirmation, Serializable {
 	public void setCost(double cost) {
 		this.cost = cost;
 	}
-	
+
 	public void setInsurance(boolean insurance) {
 		this.insurance = insurance;
 	}

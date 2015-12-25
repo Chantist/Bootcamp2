@@ -17,6 +17,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.jits.transfer.ConfirmationBean;
+import com.jits.transfer.IConfirmation;
 
 public class DeliveryTest {
 
@@ -76,9 +77,9 @@ public class DeliveryTest {
 		railMap.put("toZip", "90008");
 		railMap.put("lType", "plain");
 
-		grd = DeliveryFactory.getDelivery(grdMap);
-		air = DeliveryFactory.getDelivery(airMap);
-		rail = DeliveryFactory.getDelivery(railMap);
+		grd = DeliveryFactory.getInstance(grdMap);
+		air = DeliveryFactory.getInstance(airMap);
+		rail = DeliveryFactory.getInstance(railMap);
 
 		formatter.setRoundingMode(RoundingMode.DOWN);
 
@@ -119,32 +120,32 @@ public class DeliveryTest {
 	}
 
 	@Test
-	public void testAirCost() {
+	public void testAircalculateCost() {
 
 		double expectedNotRounded = air.calculateZoneDifference() * (air.getParcel().getWeight() / 16)
 				* (air.getParcel().volume()) * 1.75;
 
-		assertEquals(Double.parseDouble(formatter.format(expectedNotRounded)), air.cost(), .001);
+		assertEquals(Double.parseDouble(formatter.format(expectedNotRounded)), air.calculateCost(), .001);
 	}
 
 	@Test
-	public void testGroundCost() {
+	public void testGroundcalculateCost() {
 
 		double expectedNotRounded = grd.calculateZoneDifference() * (grd.getParcel().getWeight() / 16) * 1.1 - 0;
 
-		assertEquals(Double.parseDouble(formatter.format(expectedNotRounded)), grd.cost(), .001);
+		assertEquals(Double.parseDouble(formatter.format(expectedNotRounded)), grd.calculateCost(), .001);
 	}
 
 	@Test
 	public void testReview() {
 
-		ConfirmationBean review = grd.review();
+		IConfirmation review = grd.review();
 
 		assertEquals(grd.getStatus(), review.getStatus());
 		assertEquals(grd.getParcel().getFrom(), review.getOrigin());
 		assertEquals(grd.getParcel().getTo(), review.getDest());
 		assertEquals(grd.calculateDeliveryTime(), review.getDeliveryTime(), .001);
-		assertEquals(grd.cost(), review.getCost(), .001);
+		assertEquals(grd.calculateCost(), review.getCost(), .001);
 		assertEquals(grd.getParcel().getWeight(), review.getWeight(), .001);
 		assertEquals(grd.getClass().getSimpleName(), review.getDeliveryType());
 		assertEquals(grd.getParcel().getClass().getSimpleName(), review.getPackageType());
@@ -158,14 +159,15 @@ public class DeliveryTest {
 	}
 
 	@Test
-	public void testRailCost() {
-		assertEquals(5, rail.cost(), .001);
+	public void testRailcalculateCost() {
+		assertEquals(5, rail.calculateCost(), .001);
 	}
 
 	@Test
 	public void testConfirmationBeanLoggedToStorage() {
-		rail.review();
+		
 		ConfirmationBean result = null;
+		rail.log(rail.review());
 
 		try (XMLDecoder d = new XMLDecoder(new BufferedInputStream(new FileInputStream("Storage.xml")))) {
 			result = (ConfirmationBean) d.readObject();
@@ -173,7 +175,7 @@ public class DeliveryTest {
 			e.printStackTrace();
 		}
 
-		assertEquals(rail.cost(), result.getCost(), .001);
+		assertEquals(rail.calculateCost(), result.getCost(), .001);
 		assertEquals(rail.getParcel().getWeight(), result.getWeight(), .001);
 		assertEquals(rail.getParcel().getFrom().toString(), result.getOrigin().toString());
 		assertEquals(rail.getParcel().getTo().toString(), result.getDest().toString());

@@ -89,10 +89,10 @@ public class DeliveryFactoryTest {
 		boxGroundMap.put("depth", "10");
 		boxGroundMap.put("insurance", "false");
 
-		letterAir = DeliveryFactory.getDelivery(letterAirMap);
-		letterGround = DeliveryFactory.getDelivery(letterGroundMap);
-		boxAir = DeliveryFactory.getDelivery(boxAirMap);
-		boxGround = DeliveryFactory.getDelivery(boxGroundMap);
+		letterAir = DeliveryFactory.getInstance(letterAirMap);
+		letterGround = DeliveryFactory.getInstance(letterGroundMap);
+		boxAir = DeliveryFactory.getInstance(boxAirMap);
+		boxGround = DeliveryFactory.getInstance(boxGroundMap);
 
 	}
 

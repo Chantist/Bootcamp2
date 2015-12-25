@@ -2,27 +2,27 @@
 <java version="1.7.0_79" class="java.beans.XMLDecoder">
  <object class="com.jits.transfer.ConfirmationBean" id="ConfirmationBean0">
   <void property="cost">
-   <double>7.15</double>
+   <double>5.0</double>
   </void>
   <void property="deliveryTime">
-   <double>3.0</double>
+   <double>10.0</double>
   </void>
   <void property="deliveryType">
-   <string>Ground</string>
+   <string>Rail</string>
   </void>
   <void property="dest">
    <object class="com.jits.core.Address">
     <void property="city">
-     <string>Dusty</string>
+     <string>Drought</string>
     </void>
     <void property="name">
-     <string>Luke Skywalker</string>
+     <string>Dri Nowaterr</string>
     </void>
     <void property="state">
-     <string>CA</string>
+     <string>ID</string>
     </void>
     <void property="street">
-     <string>1111 Star Way</string>
+     <string>89 Vacation Circle</string>
     </void>
     <void property="zipcode">
      <string>90008</string>
@@ -35,53 +35,53 @@
      <string>Atlanta</string>
     </void>
     <void property="name">
-     <string>Bucky Barnes</string>
+     <string>Number One</string>
     </void>
     <void property="state">
      <string>GA</string>
     </void>
     <void property="street">
-     <string>123 Main St</string>
+     <string>789 Onetwothree St</string>
     </void>
     <void property="zipcode">
-     <string>30326</string>
+     <string>31111</string>
     </void>
    </object>
   </void>
   <void property="packageType">
-   <string>Box</string>
+   <string>Letter</string>
   </void>
   <void property="review">
    <void method="add">
     <string>Status: Pending</string>
    </void>
    <void method="add">
-    <string>Origin: Bucky Barnes | 123 Main St | Atlanta, GA 30326</string>
+    <string>Origin: Number One | 789 Onetwothree St | Atlanta, GA 31111</string>
    </void>
    <void method="add">
-    <string>Destination: Luke Skywalker | 1111 Star Way | Dusty, CA 90008</string>
+    <string>Destination: Dri Nowaterr | 89 Vacation Circle | Drought, ID 90008</string>
    </void>
    <void method="add">
-    <string>Delivery type: Ground</string>
+    <string>Delivery type: Rail</string>
    </void>
    <void method="add">
-    <string>Package type: Box</string>
+    <string>Package type: Letter</string>
    </void>
    <void method="add">
-    <string>Weight: 52.0</string>
+    <string>Weight: 3.0</string>
    </void>
    <void method="add">
-    <string>Time: 3.0</string>
+    <string>Time: 10.0</string>
    </void>
    <void method="add">
-    <string>Cost: 7.15</string>
+    <string>Cost: 5.0</string>
    </void>
   </void>
   <void property="status">
    <string>Pending</string>
   </void>
   <void property="weight">
-   <double>52.0</double>
+   <double>3.0</double>
   </void>
  </object>
 </java>

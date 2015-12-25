@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.7.0_79" class="java.beans.XMLDecoder">
+ <object class="com.jits.transfer.ConfirmationBean" id="ConfirmationBean0">
+  <void property="cost">
+   <double>1.44</double>
+  </void>
+  <void property="deliveryTime">
+   <double>1.5</double>
+  </void>
+  <void property="deliveryType">
+   <string>Ground</string>
+  </void>
+  <void property="dest">
+   <object class="com.jits.core.Address">
+    <void property="city">
+     <string>WA</string>
+    </void>
+    <void property="name">
+     <string>Sampson</string>
+    </void>
+    <void property="state">
+     <string>Seattle</string>
+    </void>
+    <void property="street">
+     <string>7777 Street</string>
+    </void>
+    <void property="zipcode">
+     <string>8000</string>
+    </void>
+   </object>
+  </void>
+  <void property="origin">
+   <object class="com.jits.core.Address">
+    <void property="city">
+     <string>SA</string>
+    </void>
+    <void property="name">
+     <string>Princess</string>
+    </void>
+    <void property="state">
+     <string>City</string>
+    </void>
+    <void property="street">
+     <string>728 Main</string>
+    </void>
+    <void property="zipcode">
+     <string>78988</string>
+    </void>
+   </object>
+  </void>
+  <void property="packageType">
+   <string>Letter</string>
+  </void>
+  <void property="review">
+   <void method="add">
+    <string>Status: Delivered</string>
+   </void>
+   <void method="add">
+    <string>Origin: Princess | 728 Main | SA, City 78988</string>
+   </void>
+   <void method="add">
+    <string>Destination: Sampson | 7777 Street | WA, Seattle 8000</string>
+   </void>
+   <void method="add">
+    <string>Delivery type: Ground</string>
+   </void>
+   <void method="add">
+    <string>Package type: Letter</string>
+   </void>
+   <void method="add">
+    <string>Insured: false</string>
+   </void>
+   <void method="add">
+    <string>Weight: 21.0</string>
+   </void>
+   <void method="add">
+    <string>Time: 1.5</string>
+   </void>
+   <void method="add">
+    <string>Cost: 1.44</string>
+   </void>
+  </void>
+  <void property="status">
+   <string>Delivered</string>
+  </void>
+  <void property="weight">
+   <double>21.0</double>
+  </void>
+ </object>
+</java>
