@@ -6,11 +6,11 @@ import com.jits.cost.AirCost;
 import com.jits.cost.GroundCost;
 import com.jits.cost.RailCost;
 
-abstract class DeliveryFactory {
+public abstract class DeliveryFactory {
 
 	private static Map<String, String> map;
 
-	static Delivery getDelivery(Map<String, String> letterAirMap) {
+	public static Delivery getInstance(Map<String, String> letterAirMap) {
 		DeliveryFactory.map = letterAirMap;
 
 		return DeliveryFactory.determineDeliveryType();
@@ -27,19 +27,19 @@ abstract class DeliveryFactory {
 		case 'A':
 
 			rtn = new Air(parcel);
-			rtn.setCost(
+			rtn.setCalculator(
 					new AirCost(rtn.calculateZoneDifference(), rtn.getParcel().getWeight(), rtn.getParcel().volume()));
 			break;
 		case 'G':
 
 			rtn = new Ground(parcel);
-			rtn.setCost(new GroundCost(rtn.calculateZoneDifference(), rtn.getParcel().getWeight(), rtn.getToZone(),
+			rtn.setCalculator(new GroundCost(rtn.calculateZoneDifference(), rtn.getParcel().getWeight(), rtn.getToZone(),
 					rtn.getFromZone()));
 			break;
 		case 'R':
 
 			rtn = new Rail(parcel);
-			rtn.setCost(new RailCost(rtn.calculateZoneDifference()));
+			rtn.setCalculator(new RailCost(rtn.calculateZoneDifference()));
 			break;
 		}
 

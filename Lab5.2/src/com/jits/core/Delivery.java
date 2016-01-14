@@ -9,13 +9,15 @@ import java.util.List;
 
 import com.jits.cost.Cost;
 import com.jits.transfer.ConfirmationBean;
+import com.jits.transfer.IConfirmation;
 
-abstract class Delivery {
+public abstract class Delivery {
 
 	private Parcel parcel;
 	private int fromZone;
 	private int toZone;
-	private Cost cost;
+	private Cost calculator;
+	private double cost;
 	private String status;
 
 	Delivery(Parcel parcel) {
@@ -27,11 +29,14 @@ abstract class Delivery {
 		this.setStatus("Pending");
 	}
 
-	protected abstract double calculateDeliveryTime();
+	public abstract double calculateDeliveryTime();
 
-	private double determineCost() {
+	public double calculateCost() {
+		double rtn = this.getCalculator().calculateCost();
 
-		return this.getCost().calculateCost();
+		this.setCost(rtn);
+
+		return rtn;
 	}
 
 	private int getFirstDigitOfZipcodeAsInt(String zip) {
@@ -39,7 +44,7 @@ abstract class Delivery {
 		return Integer.parseInt(zip.substring(0, 1));
 	}
 
-	private void log(ConfirmationBean bean) {
+	public void log(IConfirmation bean) {
 
 		try (XMLEncoder e = new XMLEncoder(new BufferedOutputStream(new FileOutputStream("Storage.xml")))) {
 			e.writeObject(bean);
@@ -48,25 +53,6 @@ abstract class Delivery {
 			exp.printStackTrace();
 		}
 
-	}
-
-	final String prepare() {
-		List<String> strings = new ArrayList<String>();
-		strings.add("Cost: " + this.determineCost());
-		strings.add("Delivery time: " + this.calculateDeliveryTime());
-
-		if (this.getParcel() instanceof Insurable) {
-			strings.add("Insured: " + ((Insurable) this.getParcel()).getInsurance());
-		}
-
-		StringBuilder builder = new StringBuilder();
-
-		for (String string : strings) {
-			builder.append(string);
-			builder.append("\n");
-		}
-
-		return builder.toString();
 	}
 
 	int calculateZoneDifference() {
@@ -80,33 +66,36 @@ abstract class Delivery {
 		return rtn;
 	}
 
-	ConfirmationBean review() {
-		ConfirmationBean rtn = null;
+	private IConfirmation createConfirmation(String status) {
+		IConfirmation rtn = null;
 
 		if (this.getParcel() instanceof Insurable) {
-			rtn = new ConfirmationBean(this.getStatus(), this.getParcel().getFrom(), this.getParcel().getTo(),
+			rtn = new ConfirmationBean(status, this.getParcel().getFrom(), this.getParcel().getTo(),
 					this.getParcel().getClass().getSimpleName(), this.getClass().getSimpleName(),
-					this.getParcel().getWeight(), this.calculateDeliveryTime(), this.cost(),
+					this.getParcel().getWeight(), this.calculateDeliveryTime(), this.calculateCost(),
 					((Insurable) this.getParcel()).getInsurance());
 		} else {
-			rtn = new ConfirmationBean(this.getStatus(), this.getParcel().getFrom(), this.getParcel().getTo(),
+			rtn = new ConfirmationBean(status, this.getParcel().getFrom(), this.getParcel().getTo(),
 					this.getParcel().getClass().getSimpleName(), this.getClass().getSimpleName(),
-					this.getParcel().getWeight(), this.calculateDeliveryTime(), this.cost(), false);
+					this.getParcel().getWeight(), this.calculateDeliveryTime(), this.calculateCost(), false);
 		}
-
-		this.log(rtn);
 
 		return rtn;
 	}
 
-	String ship() {
-		this.setStatus("Shipped");
-		return "Parcel has been shipped by " + this.getClass().getSimpleName().toLowerCase() + ".";
+	public IConfirmation review() {
+		this.setStatus("Pending");
+		return this.createConfirmation("Pending");
 	}
 
-	String cancel() {
+	public IConfirmation ship() {
+		this.setStatus("Delivered");
+		return this.createConfirmation("Delivered");
+	}
+
+	public IConfirmation cancel() {
 		this.setStatus("Cancelled");
-		return "Delivery has been cancelled.";
+		return this.createConfirmation("Cancelled");
 	}
 
 	@Override
@@ -126,10 +115,6 @@ abstract class Delivery {
 		}
 
 		return review.toString();
-	}
-
-	double cost() {
-		return this.determineCost();
 	}
 
 	Parcel getParcel() {
@@ -156,12 +141,12 @@ abstract class Delivery {
 		this.fromZone = fromZone;
 	}
 
-	Cost getCost() {
-		return cost;
+	private Cost getCalculator() {
+		return calculator;
 	}
 
-	void setCost(Cost cost) {
-		this.cost = cost;
+	void setCalculator(Cost calculator) {
+		this.calculator = calculator;
 	}
 
 	String getStatus() {
@@ -170,6 +155,14 @@ abstract class Delivery {
 
 	private void setStatus(String status) {
 		this.status = status;
+	}
+
+	double getCost() {
+		return cost;
+	}
+
+	private void setCost(double cost) {
+		this.cost = cost;
 	}
 
 }
